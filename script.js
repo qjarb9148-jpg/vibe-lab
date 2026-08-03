@@ -207,8 +207,15 @@
       card.appendChild(badge);
 
       const illust = document.createElement("div");
-      illust.className = "option-illustration placeholder-box";
-      illust.textContent = `[ ${line.name}: ${opt.label} ]`;
+      illust.className = "option-illustration";
+      const illustImg = document.createElement("img");
+      illustImg.src = `assets/lines/${line.id}_${opt.id}.jpg`;
+      illustImg.alt = `${line.name} ${opt.label}`;
+      illustImg.style.width = "100%";
+      illustImg.style.height = "100%";
+      illustImg.style.objectFit = "contain";
+      illustImg.style.borderRadius = "12px";
+      illust.appendChild(illustImg);
       card.appendChild(illust);
 
       const label = document.createElement("div");
