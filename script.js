@@ -72,7 +72,7 @@
       label.textContent = "TODAY'S PALM QUOTE";
       const text = document.createElement("div");
       text.className = "quote-text";
-      text.textContent = pickRandom(state.data && state.data.quotes, DEFAULT_QUOTES);
+      text.textContent = pickRandom(state.data && state.data.intro, DEFAULT_QUOTES);
       fallbackEl.appendChild(label);
       fallbackEl.appendChild(text);
       container.appendChild(fallbackEl);
