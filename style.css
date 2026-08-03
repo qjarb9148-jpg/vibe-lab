@@ -53,15 +53,6 @@ html, body {
 #screen-hand.active {
   display: flex;
   flex-direction: column;
-  min-height: calc(var(--vh, 1vh) * 100 - 100px);
-}
-
-#screen-prep.active,
-#screen-loading.active {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  min-height: calc(var(--vh, 1vh) * 100 - 100px);
 }
 
 @keyframes fadeIn {
@@ -95,8 +86,8 @@ html, body {
 }
 
 .hand-illustration {
-  flex: 1;
-  min-height: 140px;
+  width: 100%;
+  aspect-ratio: 3 / 4;
   margin-bottom: 16px;
 }
 
