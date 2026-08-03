@@ -24,7 +24,6 @@ html, body {
 #app {
   max-width: 480px;
   margin: 0 auto;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   padding-bottom: 24px;
@@ -39,7 +38,6 @@ html, body {
 }
 
 #mainContent {
-  flex: 1;
   padding: 0 20px 20px;
 }
 
