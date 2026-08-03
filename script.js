@@ -230,7 +230,7 @@
     state.answers[state.lineIndex] = {
       lineName: line.name,
       label: opt.label,
-      desc: opt.desc,
+      text: opt.text,
       score: opt.score || {}
     };
 
@@ -312,7 +312,7 @@
       label.textContent = a.label;
       const desc = document.createElement("div");
       desc.className = "line-result-desc";
-      desc.textContent = a.desc;
+      desc.textContent = a.text;
       card.appendChild(name);
       card.appendChild(label);
       card.appendChild(desc);
@@ -490,7 +490,7 @@
 
       ctx.fillStyle = "#6b5b7a";
       ctx.font = "400 18px sans-serif";
-      const shortDesc = a.desc && a.desc.length > 40 ? a.desc.slice(0, 40) + "…" : a.desc || "";
+      const shortDesc = a.text && a.text.length > 40 ? a.text.slice(0, 40) + "…" : a.text || "";
       ctx.fillText(shortDesc, padding + 28, cursorY + 92);
 
       cursorY += 130;
