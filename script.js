@@ -1,6 +1,7 @@
 (() => {
   "use strict";
 
+  const ADS_ENABLED = false; // 애드센스 승인 후 true로 전환하고 index.html의 adsbygoogle 스크립트 태그도 다시 켤 것
   const AD_CLIENT = "ca-pub-XXXXXXXXXXXXXXXX";
   const AD_SLOT_PREP = "ZZZZZZZZZZ";
   const AD_SLOT_LOADING = "XXXXXXXXXX";
@@ -54,18 +55,8 @@
     container.innerHTML = "";
     container.classList.remove("ad-filled", "ad-empty");
 
-    const ins = document.createElement("ins");
-    ins.className = "adsbygoogle";
-    ins.style.display = "block";
-    ins.setAttribute("data-ad-client", AD_CLIENT);
-    ins.setAttribute("data-ad-slot", slotId);
-    ins.setAttribute("data-ad-format", "auto");
-    ins.setAttribute("data-full-width-responsive", "true");
-    container.appendChild(ins);
-
-    let fallbackEl = null;
     if (withFallback) {
-      fallbackEl = document.createElement("div");
+      const fallbackEl = document.createElement("div");
       fallbackEl.className = "quote-fallback";
       const label = document.createElement("div");
       label.className = "quote-label";
@@ -77,6 +68,20 @@
       fallbackEl.appendChild(text);
       container.appendChild(fallbackEl);
     }
+
+    if (!ADS_ENABLED) {
+      container.classList.add("ad-empty");
+      return;
+    }
+
+    const ins = document.createElement("ins");
+    ins.className = "adsbygoogle";
+    ins.style.display = "block";
+    ins.setAttribute("data-ad-client", AD_CLIENT);
+    ins.setAttribute("data-ad-slot", slotId);
+    ins.setAttribute("data-ad-format", "auto");
+    ins.setAttribute("data-full-width-responsive", "true");
+    container.appendChild(ins);
 
     try {
       (window.adsbygoogle = window.adsbygoogle || []).push({});
@@ -100,6 +105,12 @@
 
   function initBottomBannerAd() {
     const wrap = $("bottomBannerAd");
+
+    if (!ADS_ENABLED) {
+      wrap.classList.add("ad-empty");
+      return;
+    }
+
     const ins = wrap.querySelector(".adsbygoogle");
     try {
       (window.adsbygoogle = window.adsbygoogle || []).push({});
