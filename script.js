@@ -602,6 +602,43 @@
     });
   }
 
+  // ---------- Visit counter ----------
+  // 지금은 이 브라우저(localStorage) 기준의 임시 카운트.
+  // 실제 방문자 카운터 API로 교체할 때는 이 함수 내부만 fetch() 기반으로 바꾸면 됨.
+  function getVisitCounts() {
+    const STORAGE_DATE = "vibelab_visit_date";
+    const STORAGE_TODAY = "vibelab_visit_today";
+    const STORAGE_TOTAL = "vibelab_visit_total";
+
+    const todayKey = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
+    const storedDate = localStorage.getItem(STORAGE_DATE);
+    let today = parseInt(localStorage.getItem(STORAGE_TODAY) || "0", 10);
+    let total = parseInt(localStorage.getItem(STORAGE_TOTAL) || "0", 10);
+
+    if (storedDate !== todayKey) {
+      today = 0;
+      localStorage.setItem(STORAGE_DATE, todayKey);
+    }
+    today += 1;
+    total += 1;
+
+    localStorage.setItem(STORAGE_TODAY, String(today));
+    localStorage.setItem(STORAGE_TOTAL, String(total));
+
+    return { today, total };
+  }
+
+  function initVisitCounter() {
+    try {
+      const { today, total } = getVisitCounts();
+      const el = $("visitCounter");
+      el.textContent = `TODAY ${today} · TOTAL ${total}`;
+      el.hidden = false;
+    } catch (e) {
+      /* localStorage 사용 불가 환경 등은 조용히 무시 */
+    }
+  }
+
   function init() {
     fetch("data/results.json")
       .then((res) => {
@@ -620,6 +657,7 @@
     initResultActions();
     initBannerAd("topBannerAd");
     initBannerAd("bottomBannerAd");
+    initVisitCounter();
   }
 
   document.addEventListener("DOMContentLoaded", init);

@@ -30,11 +30,30 @@ html, body {
 }
 
 .site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 20px 2px;
+}
+
+.site-name {
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.05em;
   color: var(--purple-accent);
-  padding: 10px 20px 2px;
+}
+
+.visit-counter {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--gold);
+  background: rgba(196, 154, 74, 0.12);
+  border: 1px solid rgba(196, 154, 74, 0.35);
+  border-radius: 10px;
+  padding: 3px 8px;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
 }
 
 #mainContent {
