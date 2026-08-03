@@ -567,15 +567,7 @@
     });
   }
 
-  function setViewportHeightVar() {
-    document.documentElement.style.setProperty("--vh", `${window.innerHeight * 0.01}px`);
-  }
-
   function init() {
-    setViewportHeightVar();
-    window.addEventListener("resize", setViewportHeightVar);
-    window.addEventListener("orientationchange", setViewportHeightVar);
-
     fetch("data/results.json")
       .then((res) => {
         if (!res.ok) throw new Error("failed to load results.json");
