@@ -53,8 +53,7 @@ html, body {
 #screen-hand.active {
   display: flex;
   flex-direction: column;
-  min-height: calc(100vh - 100px);
-  min-height: calc(100dvh - 100px);
+  min-height: calc(var(--vh, 1vh) * 100 - 100px);
 }
 
 #screen-prep.active,
@@ -62,8 +61,7 @@ html, body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-height: calc(100vh - 100px);
-  min-height: calc(100dvh - 100px);
+  min-height: calc(var(--vh, 1vh) * 100 - 100px);
 }
 
 @keyframes fadeIn {
