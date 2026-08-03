@@ -478,6 +478,69 @@ html, body {
   margin-top: 8px;
 }
 
+/* Site footer (legal links, common to every screen) */
+.site-footer {
+  text-align: center;
+  font-size: 11px;
+  color: #9b8fa8;
+  padding: 12px 20px 4px;
+}
+
+.site-footer a {
+  color: #9b8fa8;
+  text-decoration: underline;
+}
+
+.footer-divider {
+  margin: 0 6px;
+}
+
+/* Legal pages (privacy.html, terms.html) */
+.legal-page {
+  padding: 0 20px 32px;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--ink);
+}
+
+.legal-page h1 {
+  font-size: 20px;
+  font-weight: 800;
+  margin: 16px 0 4px;
+}
+
+.legal-page .legal-updated {
+  font-size: 12px;
+  color: var(--purple-accent);
+  margin-bottom: 20px;
+}
+
+.legal-page h2 {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--purple-deep);
+  margin: 24px 0 8px;
+}
+
+.legal-page p,
+.legal-page li {
+  margin: 0 0 10px;
+  color: #4a3d57;
+}
+
+.legal-page ul {
+  padding-left: 20px;
+  margin: 0 0 10px;
+}
+
+.legal-page .back-link {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--purple-accent);
+  text-decoration: underline;
+}
+
 /* Top / bottom fixed thin banner ads (common to every screen) */
 .top-banner-ad,
 .bottom-banner-ad {
