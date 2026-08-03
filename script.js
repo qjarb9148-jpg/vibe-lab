@@ -3,9 +3,8 @@
 
   const ADS_ENABLED = false; // 애드센스 승인 후 true로 전환하고 index.html의 adsbygoogle 스크립트 태그도 다시 켤 것
   const AD_CLIENT = "ca-pub-XXXXXXXXXXXXXXXX";
-  const AD_SLOT_PREP = "ZZZZZZZZZZ";
-  const AD_SLOT_LOADING = "XXXXXXXXXX";
-  const AD_SLOT_BOTTOM = "YYYYYYYYYY";
+  const AD_SLOT_LOADING = "XXXXXXXXXX"; // 결과 도출 중(로딩) 화면의 큰 광고(300x250)
+  const AD_SLOT_BANNER = "YYYYYYYYYY"; // 상/하단 공통 얇은 배너(320x50)
   const AD_CHECK_INTERVAL_MS = 250;
   const AD_CHECK_MAX_TRIES = 12;
   const LOADING_DURATION_MS = 2600;
@@ -51,7 +50,13 @@
   }
 
   // ---------- Ad slots ----------
-  function buildAdSlot(container, slotId, { withFallback = true } = {}) {
+  // size: "large" -> 300x250 (결과 도출 중 화면), "thin" -> 320x50 (상/하단 공통 배너)
+  const AD_SIZES = {
+    large: { width: 300, height: 250 },
+    thin: { width: 320, height: 50 }
+  };
+
+  function buildAdSlot(container, slotId, { withFallback = true, size = "large" } = {}) {
     container.innerHTML = "";
     container.classList.remove("ad-filled", "ad-empty");
 
@@ -74,13 +79,14 @@
       return;
     }
 
+    const { width, height } = AD_SIZES[size];
     const ins = document.createElement("ins");
     ins.className = "adsbygoogle";
-    ins.style.display = "block";
+    ins.style.display = "inline-block";
+    ins.style.width = `${width}px`;
+    ins.style.height = `${height}px`;
     ins.setAttribute("data-ad-client", AD_CLIENT);
     ins.setAttribute("data-ad-slot", slotId);
-    ins.setAttribute("data-ad-format", "auto");
-    ins.setAttribute("data-full-width-responsive", "true");
     container.appendChild(ins);
 
     try {
@@ -103,8 +109,8 @@
     }, AD_CHECK_INTERVAL_MS);
   }
 
-  function initBottomBannerAd() {
-    const wrap = $("bottomBannerAd");
+  function initBannerAd(elementId) {
+    const wrap = $(elementId);
 
     if (!ADS_ENABLED) {
       wrap.classList.add("ad-empty");
@@ -128,6 +134,19 @@
         clearInterval(timer);
       }
     }, AD_CHECK_INTERVAL_MS);
+  }
+
+  function renderPrepQuote() {
+    const el = $("prepQuote");
+    el.innerHTML = "";
+    const label = document.createElement("div");
+    label.className = "quote-label";
+    label.textContent = "TODAY'S PALM QUOTE";
+    const text = document.createElement("div");
+    text.className = "quote-text";
+    text.textContent = pickRandom(state.data && state.data.intro, DEFAULT_QUOTES);
+    el.appendChild(label);
+    el.appendChild(text);
   }
 
   // ---------- Screen 0: hand select ----------
@@ -220,7 +239,7 @@
       renderLineScreen();
     } else {
       showScreen("prep");
-      buildAdSlot($("adPrep"), AD_SLOT_PREP, { withFallback: true });
+      renderPrepQuote();
     }
   }
 
@@ -228,7 +247,7 @@
   function initPrepScreen() {
     $("btnShowResult").addEventListener("click", () => {
       showScreen("loading");
-      buildAdSlot($("adLoading"), AD_SLOT_LOADING, { withFallback: true });
+      buildAdSlot($("adLoading"), AD_SLOT_LOADING, { withFallback: true, size: "large" });
       setTimeout(() => {
         computeResult();
         renderResultScreen();
@@ -594,7 +613,8 @@
 
     initPrepScreen();
     initResultActions();
-    initBottomBannerAd();
+    initBannerAd("topBannerAd");
+    initBannerAd("bottomBannerAd");
   }
 
   document.addEventListener("DOMContentLoaded", init);

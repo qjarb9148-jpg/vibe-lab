@@ -237,6 +237,28 @@ html, body {
   display: none !important;
 }
 
+.ad-slot-wrap.ad-slot-large {
+  min-height: 250px;
+  max-height: 280px;
+}
+
+.ad-slot-wrap.ad-slot-large .adsbygoogle {
+  max-height: 250px;
+}
+
+.quote-slot {
+  background: linear-gradient(135deg, var(--purple-deep), var(--purple-accent));
+  border-radius: var(--card-radius);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  color: #fff;
+  min-height: 100px;
+  margin: 16px 0 24px;
+}
+
 .quote-fallback {
   position: absolute;
   inset: 0;
@@ -449,13 +471,12 @@ html, body {
   margin-top: 8px;
 }
 
-/* Bottom fixed banner ad */
+/* Top / bottom fixed thin banner ads (common to every screen) */
+.top-banner-ad,
 .bottom-banner-ad {
   position: sticky;
-  bottom: 0;
   width: 100%;
   background: var(--bg);
-  border-top: 1px solid rgba(74, 44, 94, 0.1);
   padding: 4px 20px;
   text-align: center;
   min-height: 44px;
@@ -463,11 +484,24 @@ html, body {
   overflow: hidden;
 }
 
+.top-banner-ad {
+  top: 0;
+  z-index: 5;
+  border-bottom: 1px solid rgba(74, 44, 94, 0.1);
+}
+
+.bottom-banner-ad {
+  bottom: 0;
+  border-top: 1px solid rgba(74, 44, 94, 0.1);
+}
+
+.top-banner-ad .adsbygoogle,
 .bottom-banner-ad .adsbygoogle {
   max-height: 52px;
   overflow: hidden;
 }
 
+.top-banner-ad.ad-empty,
 .bottom-banner-ad.ad-empty {
   display: none;
 }
