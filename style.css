@@ -418,6 +418,13 @@ html, body {
   margin-bottom: 4px;
 }
 
+.line-result-short-desc {
+  font-size: 12px;
+  color: var(--purple-accent);
+  font-style: italic;
+  margin-bottom: 6px;
+}
+
 .line-result-desc {
   font-size: 13px;
   color: #6b5b7a;

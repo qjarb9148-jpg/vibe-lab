@@ -230,6 +230,7 @@
     state.answers[state.lineIndex] = {
       lineName: line.name,
       label: opt.label,
+      desc: opt.desc,
       text: opt.text,
       score: opt.score || {}
     };
@@ -310,12 +311,16 @@
       const label = document.createElement("div");
       label.className = "line-result-label";
       label.textContent = a.label;
-      const desc = document.createElement("div");
-      desc.className = "line-result-desc";
-      desc.textContent = a.text;
+      const shortDesc = document.createElement("div");
+      shortDesc.className = "line-result-short-desc";
+      shortDesc.textContent = a.desc;
+      const text = document.createElement("div");
+      text.className = "line-result-desc";
+      text.textContent = a.text;
       card.appendChild(name);
       card.appendChild(label);
-      card.appendChild(desc);
+      card.appendChild(shortDesc);
+      card.appendChild(text);
       linesEl.appendChild(card);
     });
 
