@@ -215,6 +215,10 @@
       illustImg.style.height = "100%";
       illustImg.style.objectFit = "contain";
       illustImg.style.borderRadius = "12px";
+      // 일러스트는 오른손 기준으로 그려져 있어서, 왼손 선택 시 좌우 반전
+      if (state.hand === "left") {
+        illustImg.style.transform = "scaleX(-1)";
+      }
       illust.appendChild(illustImg);
       card.appendChild(illust);
 
