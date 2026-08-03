@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>바이브연구소 - 손금 테스트</title>
+<link rel="stylesheet" href="style.css">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="app">
+  <header class="site-header">바이브연구소</header>
+
+  <main id="mainContent">
+
+    <!-- 0. 손 선택 페이지 -->
+    <section id="screen-hand" class="screen active">
+      <div id="friendBanner" class="friend-banner" hidden></div>
+      <h1 class="title">당신의 손금을<br>지금 확인해보세요</h1>
+      <p class="subtitle">5개 질문이면 충분해요 · 소요시간 1분</p>
+      <div class="hand-illustration placeholder-box">
+        <span>[ 손 일러스트 자리 ]</span>
+      </div>
+      <div class="hand-select-buttons">
+        <button type="button" class="hand-btn" data-hand="left">왼손</button>
+        <button type="button" class="hand-btn" data-hand="right">오른손</button>
+      </div>
+    </section>
+
+    <!-- 1~5. 손금선 선택 페이지 (동일 템플릿 재사용) -->
+    <section id="screen-line" class="screen">
+      <div class="progress-dots" id="progressDots"></div>
+      <h2 class="question" id="lineQuestion"></h2>
+      <div class="options-grid" id="lineOptions"></div>
+    </section>
+
+    <!-- 6. 결과 준비 페이지 (광고 슬롯) -->
+    <section id="screen-prep" class="screen">
+      <h2 class="title">선택 완료!</h2>
+      <p class="subtitle">5개 손금 분석을 다 마쳤어요</p>
+      <div class="ad-slot-wrap" id="adPrep"></div>
+      <button type="button" id="btnShowResult" class="btn-primary">✨ 결과보기</button>
+    </section>
+
+    <!-- 7a. 로딩 페이지 -->
+    <section id="screen-loading" class="screen">
+      <h2 class="title">당신의 손금을<br>분석하는 중...</h2>
+      <div class="spinner" aria-hidden="true"></div>
+      <div class="ad-slot-wrap" id="adLoading"></div>
+    </section>
+
+    <!-- 7b. 결과 페이지 -->
+    <section id="screen-result" class="screen">
+      <div id="friendCompareBox" class="friend-compare-box" hidden></div>
+
+      <div class="headline-card">
+        <div class="headline-label">YOUR TYPE</div>
+        <div class="headline-mod" id="resultMod"></div>
+        <div class="headline-name" id="resultName"></div>
+      </div>
+
+      <div class="summary-box">
+        <p id="resultSummary"></p>
+        <p id="resultCompatSentence" class="compat-sentence"></p>
+      </div>
+
+      <div class="lines-results" id="resultLines"></div>
+
+      <div class="compat-box">
+        <h3>💛 나랑 궁합 좋은 유형</h3>
+        <ul id="compatList"></ul>
+      </div>
+
+      <div class="result-actions">
+        <button type="button" id="btnScreenshot" class="btn-secondary">📸 결과 스크린샷 저장</button>
+        <p class="action-desc">이미지로 저장해서 친구에게 보내보세요</p>
+        <button type="button" id="btnShare" class="btn-secondary">🔗 링크 공유하기</button>
+        <p class="action-desc">링크를 열면 친구도 바로 테스트할 수 있어요</p>
+      </div>
+
+      <p class="outro" id="outroText"></p>
+      <a href="#" id="restartLink" class="restart-link">처음부터 다시 보기</a>
+    </section>
+
+  </main>
+
+  <div id="bottomBannerAd" class="bottom-banner-ad">
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+         data-ad-slot="YYYYYYYYYY"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+  </div>
+</div>
+
+<canvas id="screenshotCanvas" hidden></canvas>
+
+<script src="script.js"></script>
+</body>
+</html>
