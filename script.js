@@ -1,10 +1,10 @@
 (() => {
   "use strict";
 
-  const ADS_ENABLED = false; // 애드센스 승인 후 true로 전환하고 index.html의 adsbygoogle 스크립트 태그도 다시 켤 것
-  const AD_CLIENT = "ca-pub-XXXXXXXXXXXXXXXX";
-  const AD_SLOT_LOADING = "XXXXXXXXXX"; // 결과 도출 중(로딩) 화면의 큰 광고(300x250)
-  const AD_SLOT_BANNER = "YYYYYYYYYY"; // 상/하단 공통 얇은 배너(320x50)
+  const ADS_ENABLED = false; // 실제 광고 단위(slot ID) 발급받으면 true로 전환
+  const AD_CLIENT = "ca-pub-2056882388729585";
+  const AD_SLOT_LOADING = "XXXXXXXXXX"; // TODO: 승인 후 결과 도출 중(로딩) 화면 큰 광고(300x250)의 실제 slot ID로 교체
+  const AD_SLOT_BANNER = "YYYYYYYYYY"; // TODO: 승인 후 상/하단 공통 얇은 배너(320x50)의 실제 slot ID로 교체
   const AD_CHECK_INTERVAL_MS = 250;
   const AD_CHECK_MAX_TRIES = 12;
   const LOADING_DURATION_MS = 2600;
