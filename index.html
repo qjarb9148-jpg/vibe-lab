@@ -21,8 +21,12 @@
 <meta name="twitter:description" content="5개 질문이면 충분해요! 나만의 손금 유형을 확인하고 친구와 궁합도 비교해보세요.">
 <meta name="twitter:image" content="https://vibelabhand.netlify.app/assets/hand_base.jpg">
 
-<link rel="stylesheet" href="style.css?v=16">
+<link rel="stylesheet" href="style.css?v=17">
 <!-- 애드센스 사이트 심사용 스크립트. 실제 광고 슬롯(ADS_ENABLED)은 승인 후 활성화 예정 -->
+<!-- 승인 전까지는 자동광고를 포함한 모든 광고 요청을 일시중지 (콘텐츠 없는 화면에 자동광고가 붙는 정책 위반 방지) -->
+<script>
+  (window.adsbygoogle = window.adsbygoogle || []).pauseAdRequests = 1;
+</script>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2056882388729585" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -67,11 +71,10 @@
       <button type="button" id="btnShowResult" class="btn-primary">✨ 결과보기</button>
     </section>
 
-    <!-- 7a. 로딩 페이지 (큰 광고 슬롯) -->
+    <!-- 7a. 로딩 페이지 (콘텐츠 없는 화면이라 광고 미게재) -->
     <section id="screen-loading" class="screen">
       <h2 class="title">당신의 손금을<br>분석하는 중...</h2>
       <div class="spinner" aria-hidden="true"></div>
-      <div class="ad-slot-wrap ad-slot-large" id="adLoading"></div>
     </section>
 
     <!-- 7b. 결과 페이지 -->
@@ -129,6 +132,6 @@
 
 <canvas id="screenshotCanvas" hidden></canvas>
 
-<script src="script.js?v=16"></script>
+<script src="script.js?v=17"></script>
 </body>
 </html>

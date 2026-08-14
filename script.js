@@ -3,8 +3,9 @@
 
   const ADS_ENABLED = false; // 실제 광고 단위(slot ID) 발급받으면 true로 전환
   const AD_CLIENT = "ca-pub-2056882388729585";
-  const AD_SLOT_LOADING = "XXXXXXXXXX"; // TODO: 승인 후 결과 도출 중(로딩) 화면 큰 광고(300x250)의 실제 slot ID로 교체
   const AD_SLOT_BANNER = "YYYYYYYYYY"; // TODO: 승인 후 상/하단 공통 얇은 배너(320x50)의 실제 slot ID로 교체
+  // 콘텐츠가 거의 없는 화면(선택완료/로딩)에는 애드센스 정책상 광고를 게재하지 않음
+  const AD_VISIBLE_SCREENS = new Set(["hand", "line", "result"]);
   const AD_CHECK_INTERVAL_MS = 250;
   const AD_CHECK_MAX_TRIES = 12;
   const LOADING_DURATION_MS = 2600;
@@ -41,6 +42,9 @@
   function showScreen(name) {
     Object.values(screens).forEach((el) => el.classList.remove("active"));
     screens[name].classList.add("active");
+    const showAds = AD_VISIBLE_SCREENS.has(name);
+    $("topBannerAd").hidden = !showAds;
+    $("bottomBannerAd").hidden = !showAds;
     window.scrollTo({ top: 0, behavior: "instant" in window ? "instant" : "auto" });
   }
 
@@ -50,65 +54,7 @@
   }
 
   // ---------- Ad slots ----------
-  // size: "large" -> 300x250 (결과 도출 중 화면), "thin" -> 320x50 (상/하단 공통 배너)
-  const AD_SIZES = {
-    large: { width: 300, height: 250 },
-    thin: { width: 320, height: 50 }
-  };
-
-  function buildAdSlot(container, slotId, { withFallback = true, size = "large" } = {}) {
-    container.innerHTML = "";
-    container.classList.remove("ad-filled", "ad-empty");
-
-    if (withFallback) {
-      const fallbackEl = document.createElement("div");
-      fallbackEl.className = "quote-fallback";
-      const label = document.createElement("div");
-      label.className = "quote-label";
-      label.textContent = "TODAY'S PALM QUOTE";
-      const text = document.createElement("div");
-      text.className = "quote-text";
-      text.textContent = pickRandom(state.data && state.data.intro, DEFAULT_QUOTES);
-      fallbackEl.appendChild(label);
-      fallbackEl.appendChild(text);
-      container.appendChild(fallbackEl);
-    }
-
-    if (!ADS_ENABLED) {
-      container.classList.add("ad-empty");
-      return;
-    }
-
-    const { width, height } = AD_SIZES[size];
-    const ins = document.createElement("ins");
-    ins.className = "adsbygoogle";
-    ins.style.display = "inline-block";
-    ins.style.width = `${width}px`;
-    ins.style.height = `${height}px`;
-    ins.setAttribute("data-ad-client", AD_CLIENT);
-    ins.setAttribute("data-ad-slot", slotId);
-    container.appendChild(ins);
-
-    try {
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
-    } catch (e) {
-      /* adsbygoogle not loaded (e.g. offline dev) */
-    }
-
-    let tries = 0;
-    const timer = setInterval(() => {
-      tries += 1;
-      const filled = !!ins.querySelector("iframe");
-      if (filled) {
-        container.classList.add("ad-filled");
-        clearInterval(timer);
-      } else if (tries >= AD_CHECK_MAX_TRIES) {
-        container.classList.add("ad-empty");
-        clearInterval(timer);
-      }
-    }, AD_CHECK_INTERVAL_MS);
-  }
-
+  // 상/하단 공통 배너(320x50)만 사용. 콘텐츠가 빈약한 화면(prep/loading)에는 게재하지 않음(showScreen에서 처리)
   function initBannerAd(elementId) {
     const wrap = $(elementId);
 
@@ -259,7 +205,6 @@
   function initPrepScreen() {
     $("btnShowResult").addEventListener("click", () => {
       showScreen("loading");
-      buildAdSlot($("adLoading"), AD_SLOT_LOADING, { withFallback: true, size: "large" });
       setTimeout(() => {
         computeResult();
         renderResultScreen();
