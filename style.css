@@ -217,35 +217,6 @@ html, body {
   line-height: 1.4;
 }
 
-/* Ad slot */
-.ad-slot-wrap {
-  position: relative;
-  min-height: 100px;
-  max-height: 250px;
-  overflow: hidden;
-  margin: 16px 0 24px;
-}
-
-.ad-slot-wrap .adsbygoogle {
-  position: relative;
-  z-index: 2;
-  max-height: 250px;
-  overflow: hidden;
-}
-
-.ad-slot-wrap.ad-empty .adsbygoogle {
-  display: none !important;
-}
-
-.ad-slot-wrap.ad-slot-large {
-  min-height: 250px;
-  max-height: 280px;
-}
-
-.ad-slot-wrap.ad-slot-large .adsbygoogle {
-  max-height: 250px;
-}
-
 .quote-slot {
   background: linear-gradient(135deg, var(--purple-deep), var(--purple-accent));
   border-radius: var(--card-radius);
@@ -257,25 +228,6 @@ html, body {
   color: #fff;
   min-height: 100px;
   margin: 16px 0 24px;
-}
-
-.quote-fallback {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background: linear-gradient(135deg, var(--purple-deep), var(--purple-accent));
-  border-radius: var(--card-radius);
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 8px;
-  color: #fff;
-  min-height: 100px;
-}
-
-.ad-slot-wrap.ad-filled .quote-fallback {
-  display: none;
 }
 
 .quote-label {
