@@ -1,13 +1,6 @@
 (() => {
   "use strict";
 
-  const ADS_ENABLED = false; // 실제 광고 단위(slot ID) 발급받으면 true로 전환
-  const AD_CLIENT = "ca-pub-2056882388729585";
-  const AD_SLOT_BANNER = "YYYYYYYYYY"; // TODO: 승인 후 상/하단 공통 얇은 배너(320x50)의 실제 slot ID로 교체
-  // 콘텐츠가 거의 없는 화면(선택완료/로딩)에는 애드센스 정책상 광고를 게재하지 않음
-  const AD_VISIBLE_SCREENS = new Set(["hand", "line", "result"]);
-  const AD_CHECK_INTERVAL_MS = 250;
-  const AD_CHECK_MAX_TRIES = 12;
   const LOADING_DURATION_MS = 2600;
 
   const DEFAULT_QUOTES = [
@@ -42,44 +35,12 @@
   function showScreen(name) {
     Object.values(screens).forEach((el) => el.classList.remove("active"));
     screens[name].classList.add("active");
-    const showAds = AD_VISIBLE_SCREENS.has(name);
-    $("topBannerAd").hidden = !showAds;
-    $("bottomBannerAd").hidden = !showAds;
     window.scrollTo({ top: 0, behavior: "instant" in window ? "instant" : "auto" });
   }
 
   function pickRandom(arr, fallback) {
     const list = Array.isArray(arr) && arr.length ? arr : fallback;
     return list[Math.floor(Math.random() * list.length)];
-  }
-
-  // ---------- Ad slots ----------
-  // 상/하단 공통 배너(320x50)만 사용. 콘텐츠가 빈약한 화면(prep/loading)에는 게재하지 않음(showScreen에서 처리)
-  function initBannerAd(elementId) {
-    const wrap = $(elementId);
-
-    if (!ADS_ENABLED) {
-      wrap.classList.add("ad-empty");
-      return;
-    }
-
-    const ins = wrap.querySelector(".adsbygoogle");
-    try {
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
-    } catch (e) {
-      /* noop */
-    }
-    let tries = 0;
-    const timer = setInterval(() => {
-      tries += 1;
-      const filled = !!ins.querySelector("iframe");
-      if (filled) {
-        clearInterval(timer);
-      } else if (tries >= AD_CHECK_MAX_TRIES) {
-        wrap.classList.add("ad-empty");
-        clearInterval(timer);
-      }
-    }, AD_CHECK_INTERVAL_MS);
   }
 
   function renderPrepQuote() {
@@ -574,8 +535,6 @@
 
     initPrepScreen();
     initResultActions();
-    initBannerAd("topBannerAd");
-    initBannerAd("bottomBannerAd");
   }
 
   document.addEventListener("DOMContentLoaded", init);
